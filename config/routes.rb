@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "products#index"
+  root "items#index"
+
+  resources :items
+  patch "/items/:id/complete", to: "items#update_complete"
 
   # get "/products", to: "products#index"
   # get "products/:id", to: "products#show"
