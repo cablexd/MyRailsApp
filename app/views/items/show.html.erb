@@ -6,8 +6,3 @@
 <p><%= link_to "Back", items_path %></p>
 <p><%= link_to "Edit", edit_item_path %></p>
 <p><%= button_to "Delete", @item, method: :delete %></p>
-
-<%= form_with(model: @item, url: "/items/#{@item.id}/complete", method: :patch) do |f| %>
-  <%= f.label :complete, "Mark as complete" %>
-  <%= f.check_box :complete, onchange: "this.form.requestSubmit()" %>
-<% end %>

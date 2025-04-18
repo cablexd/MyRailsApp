@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   def index
     @items = Item.all
-    
+
     render :index
   end
 
@@ -38,15 +38,19 @@ class ItemsController < ApplicationController
   end
 
   def update_complete
+    puts "updating complete"
     @item = Item.find params[:id]
     @item.update(params.expect(item: [ :complete ]))
 
-    respond_to do |format|
-      format.turbo_stream do
-        puts "test abc"
-        render turbo_stream: turbo_stream.replace("item_#{@item.id}", content: '<p>This is a hardcoded paragraph.</p>')
-      end
-    end
+    # this works because the request is coming from within a turbo frame, and so it gets replaced
+    render partial: "items/item", locals: { item: @item }
+
+    # to use other parts of the dom, this would have to be used (items-list is the ID of the element being used)
+    # respond_to do |format|
+    #   format.turbo_stream do
+    #     render turbo_stream: turbo_stream.append("items-list", partial: "items/item", locals: { item: @item })
+    #   end
+    # end
   end
 
   def destroy

@@ -13,9 +13,23 @@ Rails.application.routes.draw do
   root "items#index"
 
   resources :items
-  patch "/items/:id/complete", to: "items#update_complete"
+  patch "/items/:id/complete", to: "items#update_complete", as: "complete_item"
 
   # get "/products", to: "products#index"
   # get "products/:id", to: "products#show"
   resources :products
+
+  # same as adding all of these:
+  # get "/products", to: "products#index"
+
+  # get "products/new", to: "products#new"
+  # post "/products", to: "products#create"
+
+  # get "products/:id", to: "products#show"
+
+  # get "/products/:id/edit", to: "products#edit"
+  # patch "products/:id", to: "products#update"
+  # put "products/:id", to: "products#update"
+
+  # delete "products/:id", to: "products#destroy"
 end
