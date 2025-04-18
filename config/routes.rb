@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   resources :items
   patch "/items/:id/complete", to: "items#update_complete", as: "complete_item"
+  post "/test", to: "items#test"
 
   # get "/products", to: "products#index"
   # get "products/:id", to: "products#show"

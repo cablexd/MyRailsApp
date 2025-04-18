@@ -1,0 +1,6 @@
+<%= turbo_frame_tag dom_id(item) do %>
+    <%= form_with model: item, url: complete_item_path(item) do |f| %>
+        <%= f.check_box :complete, id: "item_#{item.id}_complete", onchange: "this.form.requestSubmit()" %>
+        <%= f.label :complete, item.complete ? "Complete" : "Incomplete", for: "item_#{item.id}_complete" %>
+    <% end %>
+<% end %>

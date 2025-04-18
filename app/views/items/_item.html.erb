@@ -1,9 +1,3 @@
-<%= turbo_frame_tag dom_id(item) do %>
-    <p><%= item.name %></p>
-    <%= link_to "View", item_path(item), data: { turbo_frame: "_top" } %>
-
-    <%= form_with model: item, url: complete_item_path(item) do |f| %>
-        <%= f.check_box :complete, id: "#{dom_id(item)}_complete", onchange: "this.form.requestSubmit()" %>
-        <%= f.label :complete, (item.complete ? "Complete" : "Incomplete"), for: "#{dom_id(item)}_complete" %>
-    <% end %>
-<% end %>
+<p><%= item.name %></p>
+<%= render "items/item_status", item: item %>
+<%= link_to "View", item_path(item), data: { turbo_frame: "_top" } %>

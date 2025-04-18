@@ -1,6 +1,21 @@
 <h1>Todo List</h1>
-<p><%= link_to "New Item", new_item_path %></p>
+<%= link_to "New Item", new_item_path %>
+
+<%= form_with url: items_path, method: :get, data: { turbo_frame: "items-list" } do |f| %>
+    <%= check_box_tag :show_complete, "1", params[:show_complete].present?, onchange: "this.form.requestSubmit()" %>
+    <%= f.label :show_complete %>
+<% end %>
 
 <br>
 
-<%= render @items %>
+<%= turbo_frame_tag "test" do %>
+    
+<% end %>
+
+<%= button_to "Click me", "/test", method: :post, data: { turbo_frame: "test" } %>
+
+<br>
+
+<%= turbo_frame_tag "items-list" do %>
+    <%= render @items %>
+<% end %>

@@ -1,8 +1,14 @@
 class ItemsController < ApplicationController
   def index
-    @items = Item.all
+    @items = params[:show_complete].present? ? Item.all : Item.where(complete: true)
+    # @items = Item.all
+    puts @items
 
     render :index
+  end
+
+  def test
+    render html: "<turbo-frame id='test'><p>This is a test element</p></turbo-frame>".html_safe
   end
 
   def new
@@ -38,12 +44,11 @@ class ItemsController < ApplicationController
   end
 
   def update_complete
-    puts "updating complete"
     @item = Item.find params[:id]
     @item.update(params.expect(item: [ :complete ]))
 
     # this works because the request is coming from within a turbo frame, and so it gets replaced
-    render partial: "items/item", locals: { item: @item }
+    render partial: "items/item_status", locals: { item: @item }, content_type: "text/html" # force content type because sometimes server sends it back as turbo stream which makes it get appended after the body tag
 
     # to use other parts of the dom, this would have to be used (items-list is the ID of the element being used)
     # respond_to do |format|
